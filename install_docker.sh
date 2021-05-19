@@ -117,18 +117,19 @@ function install_docker() {
     if [ $? -gt 0 ]; then
         echo "system cannot find any running docker server! Did it not been installed or service not running?"
         echo ""
-        exit 1
-    fi
-    echo "Our company recommends using more than version 18.x.x "
-    read -p "Do you accept to install docker server (18.09.1)? yes, re-install or No! (y/r/N): " answer
-    if [ "$answer" == 'y' ] || [ "$answer" == 'Y' ]; then
-        docker_uninstall
-        docker_install
-    elif [ "$answer" == 'r' ] || [ "$answer" == 'R' ]; then
-        docker_remove_ce
         docker_install
     else
-        echo ""
+        echo "Our company recommends using more than version 18.x.x "
+        read -p "Do you accept to install docker server (18.09.1)? yes, re-install or No! (y/r/N): " answer
+        if [ "$answer" == 'y' ] || [ "$answer" == 'Y' ]; then
+            docker_uninstall
+            docker_install
+        elif [ "$answer" == 'r' ] || [ "$answer" == 'R' ]; then
+            docker_remove_ce
+            docker_install
+        else
+            echo ""
+        fi
     fi
 }
 
