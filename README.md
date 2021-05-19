@@ -2,7 +2,10 @@
 
 ## how to work.
 ```
-bash ./create_image.sh
+[install docker env]
+bash ./install_docker.sh
+[run docker base testing env]
+bash ./run_test.sh
 ```
 ## support php req.
 > 區碼
