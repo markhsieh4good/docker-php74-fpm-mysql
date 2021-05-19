@@ -10,7 +10,7 @@ services:
       MYSQL_USER: "admin" 
       MYSQL_PASSWORD: "goodday"
     volumes:
-      - /home/mysql-fruit:/var/lib/mysql
+      - ./mysql_custom_system:/var/lib/mysql
       # new MYSQL_DATABASE will trigger below files be imported by default to the database specified
       #- ./mysql_auto_import_folder:/docker-entrypoint-initdb.d
       - ./mysql_custom_configuration_80:/etc/mysql/conf.d
@@ -33,15 +33,15 @@ services:
     container_name: fruit.redis
   fruit.php:
     build: ./env/nginx-php-fpm-74 
-    image: wyveo/nginx-php-fpm:php74-modify 
+    image: php-fpm-nginx:7.4-modify 
     container_name: fruit.system
     depends_on:
       - fruit.db
     volumes:
       # with php74
-      #- ./fourth_merge_fruit_colorful/full_system:/usr/share/nginx/html
+      ./php_custom_final_web:/usr/share/nginx/html
       # nginx setting
-      #- ./env/php-fpm-56/nginx/sites-enabled/fourth_merge_fruit_colorful:/etc/nginx/sites-enabled
+      ./php_custom_nginx_conf:/etc/nginx/sites-enabled
     ports:
       - 18440:80
 
