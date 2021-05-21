@@ -24,29 +24,24 @@ services:
     restart: always 
     ports: 
       - 17184:8080 
-    environment:
-      MYSQL_USERNAME: root
-      MYSQL_ROOT_PASSWORD: 123456
-      PMA_HOST: fruit.db
-  fruit.redis:
-    image: redis:6.0
-    container_name: fruit.redis
-  fruit.php:
+    environment: 
+      MYSQL_USERNAME: root 
+      MYSQL_ROOT_PASSWORD: 123456 
+      PMA_HOST: fruit.db 
+  fruit.redis: 
+    image: redis:6.0 
+    container_name: fruit.redis 
+  fruit.php: 
     build: ./env/nginx-php-fpm-74 
-    image: php-fpm-nginx:7.4-modify 
-    container_name: fruit.system
-    depends_on:
-      - fruit.db
-    volumes:
-      # with php74
-      ./php_custom_final_web:/usr/share/nginx/html
-      # nginx setting
-      ./php_custom_nginx_conf:/etc/nginx/sites-enabled
-    ports:
-      - 18440:80
-
+    image: "php-fpm-nginx:7.4-modify" 
+    volumes: 
+      - ./php_custom_final_web:/usr/share/nginx/html 
+      - ./php_custom_nginx_conf:/etc/nginx/sites-enabled 
+    ports: 
+      - 18440:80 
+      
 networks: 
   default: 
     external: 
-      name: fruit-bridge
+      name: fruit-bridge 
 
