@@ -31,12 +31,14 @@ services:
   fruit.redis: 
     image: redis:6.0 
     container_name: fruit.redis 
-  fruit.php: 
-    build: ./env/nginx-php-fpm-74 
+  fruit.php-api: 
+    #build: ./env/nginx-php-fpm-74 
     image: "php-fpm-nginx:7.4-modify" 
+    container_name: fruit.php-api 
     volumes: 
       - ./php_custom_final_web:/usr/share/nginx/html 
       - ./php_custom_nginx_conf:/etc/nginx/sites-enabled 
+      - ./api:/opt/app
     ports: 
       - 18440:80 
       

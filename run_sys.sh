@@ -29,10 +29,10 @@ function system() {
 
 function networks() {
   CHKNETWORK=`"$SUPERTAGET" docker network ls`
-  CHKBRIDGE=`echo "$CHKNETWORK" | grep fruit-bridge"`
+  CHKBRIDGE=`echo "$CHKNETWORK" | grep fruit-bridge`
 
-  if [ -z "CHKBRIDGE" ] || [ "CHKBRIDGE" == "" ]; then
-    "$SUPERTAGET" docker network create --driver bridge fruit-bridge
+  if [ -z "$CHKBRIDGE" ] || [ "$CHKBRIDGE" == "" ]; then
+    /"$SUPERTAGET" docker network create --driver bridge fruit-bridge
   else
     "$SUPERTAGET" docker network ls | grep -E "fruit-bridge"
   fi
@@ -47,6 +47,21 @@ function folders() {
 }
 
 function update() {
+  #expand -t 1 docker-compose.yml > temp.yml
+  #rm docker-compose.yml
+  #mv ./temp.yml docker-compose.yml
+
+  l_IMG=`sudo docker images | grep 'php-fpm-nginx' | grep '7.4-modify'`
+  l_PWD=`pwd`
+  if [ -z "$l_IMG" ]; then
+    cd  ./env/nginx-php-fpm-74
+    sudo docker build -t php-fpm-nginx:7.4-modify .
+    sleep 2
+    cd "$l_PWD"
+  fi 
+
+  sleep 2
+
   "$SUPERTAGET" docker-compose -f docker-compose.yml down
   sleep 3
   "$SUPERTAGET" docker-compose -f docker-compose.yml build

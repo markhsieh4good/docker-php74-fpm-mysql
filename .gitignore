@@ -1,0 +1,11 @@
+# files
+*.zip
+
+# folder
+api/
+admin/
+
+#mysql_custom_configuration_80/
+mysql_custom_system/
+php_custom_final_web/
+php_custom_nginx_conf/

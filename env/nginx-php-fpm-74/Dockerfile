@@ -20,7 +20,8 @@ ENV LANGUAGE en_US.UTF-8
 # Common
 RUN apt-get update && \
     apt-get install --no-install-recommends --no-install-suggests -y -q \
-    libzip-dev zip git libfreetype6-dev \
+    libzip-dev \
+    libfreetype6-dev \
     libjpeg62-turbo-dev \
     libmcrypt-dev \
     libssl-dev \
@@ -47,11 +48,10 @@ RUN apt-get install --no-install-recommends --no-install-suggests -y -q \
     zip \
     unzip
     
-RUN apt-get update \
-    && apt-get install -y \
-        openssl
-    
-RUN apt-get install -y libzip-dev zip
+RUN apt-get install -y \
+        openssl \
+        libzip-dev \
+        nginx
 
 # Clean
 RUN apt-get clean
@@ -76,15 +76,15 @@ RUN php -r "unlink('composer-setup.php');"
 RUN composer --version
 
 ## Others 
-RUN echo "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d \
-    && rm -rf /etc/nginx/conf.d/default.conf
+RUN echo "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d 
 
 RUN mkdir -p /opt/app
 WORKDIR /opt/app
 
-COPY ./entrypoint.sh /opt/app/
-RUN todos -d /opt/app/entrypoint.sh
-RUN chmod +x /opt/app/entrypoint.sh
+COPY ./entrypoint.sh /opt/
+RUN chmod +rw /opt/entrypoint.sh
+RUN fromdos -d /opt/entrypoint.sh
+RUN chmod +x /opt/entrypoint.sh
 
 EXPOSE 80 443
-CMD [ "bash", "/opt/app/entrypoint.sh" ]
+CMD [ "/bin/bash", "/opt/entrypoint.sh" ]
