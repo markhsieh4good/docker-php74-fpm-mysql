@@ -5,7 +5,20 @@
 [install docker env]
 bash ./install_docker.sh
 [run docker base testing env]
-bash ./run_test.sh
+bash ./run_sys.sh
+[stop and clean testing env]
+bash ./stop_sys.sh
+```
+## env
+```
+mysql_custom_configuration_80
+放 my.ini 設定
+mysql_custom_system
+系統檔案，生成後不要去修改
+php_custom_final_web
+放 nginx 預設首頁的內容
+php_custom_nginx_conf
+放 nginx 設定
 ```
 ## support php req.
 > 區碼
