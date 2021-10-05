@@ -2,7 +2,7 @@ version: '3.3'
 services:
   fruit.db: 
     image: mysql:8.0 
-    command: --default-authentication-plugin=mysql_native_password 
+    command: --default-authentication-plugin=mysql_native_password --log-error=/var/lib/mysql/error.log --general-log=ON --general-log-file=/var/lib/mysql/general.log --slow-query-log=ON --slow-query-log-file=/var/lib/mysql/slow.log --log-output=FILE 
     container_name: fruit.db 
     restart: always 
     environment: 
