@@ -38,7 +38,8 @@ services:
     volumes: 
       - ./php_custom_final_web:/usr/share/nginx/html 
       - ./php_custom_nginx_conf:/etc/nginx/sites-enabled 
-      - ./api:/opt/app
+      #- ./api:/opt/app
+      - ./service:/opt/service
     ports: 
       - 18440:80 
       
