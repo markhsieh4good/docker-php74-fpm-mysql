@@ -1,4 +1,4 @@
-FROM php:7.4-fpm
+FROM php:7.4.24-fpm
 
 LABEL maintainer="Mark.Hsieh"
 
@@ -48,10 +48,18 @@ RUN apt-get install --no-install-recommends --no-install-suggests -y -q \
     zip \
     unzip
     
+RUN apt-get install --no-install-recommends --no-install-suggests -y -q \
+    make \
+    php-pear
+    
 RUN apt-get install -y \
         openssl \
         libzip-dev \
         nginx
+
+RUN pecl install redis-5.1.1 \
+    && pecl install xdebug-2.8.1 \
+    && docker-php-ext-enable redis xdebug
 
 # Clean
 RUN apt-get clean
@@ -63,6 +71,9 @@ RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/*
 ## For PHP >= 7.3, you just need to install zip
 ## normal install (check the avaliable package.)
 RUN docker-php-ext-install zip json mysqli pdo pdo_mysql
+RUN pecl install -o -f redis \
+	&&  rm -rf /tmp/pear \
+	&&  docker-php-ext-enable redis
 
 ## use php install extend tool
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
