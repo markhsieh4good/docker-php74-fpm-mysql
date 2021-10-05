@@ -13,7 +13,7 @@ fi
 
 if [ -e "/opt/service/howtostart" ]; then
   CMD=`cat /opt/service/howtostart | head -1`
-  /bin/bash -c "cd /etc/service && $CMD" &
+  /bin/bash -c "cd /opt/service && $CMD" &
 fi
 
 nginx -g "daemon off;"
