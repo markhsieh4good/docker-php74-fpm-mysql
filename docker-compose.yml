@@ -42,7 +42,7 @@ services:
       - ./service:/opt/service
     ports: 
       - 18440:80 
-      
+      - 18441:8000
 networks: 
   default: 
     external: 
