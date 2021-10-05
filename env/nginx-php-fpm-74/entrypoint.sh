@@ -11,8 +11,8 @@ if [ -e "/etc/nginx/site-enabled/default" ]; then
   rm /etc/nginx/site-enabled/default
 fi
 
-if [ -e "/etc/service/howtostart" ]; then
-  CMD=`cat /etc/service/howtostart | head -1`
+if [ -e "/opt/service/howtostart" ]; then
+  CMD=`cat /opt/service/howtostart | head -1`
   /bin/bash -c "cd /etc/service && $CMD" &
 fi
 
