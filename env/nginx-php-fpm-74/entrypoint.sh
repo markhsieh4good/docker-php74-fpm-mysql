@@ -12,11 +12,11 @@ if [ -e "/etc/nginx/site-enabled/default" ]; then
 fi
 
 if [ -e "/etc/service/howtostart" ]; then
-  CMD=`cat /etc/service/howtostart`
+  CMD=`cat /etc/service/howtostart | head -1`
   if [ ! -e "/var/log/service.log" ]; then
     touch /var/log/service.log
   fi 
-  /bin/bash -c "cd /etc/service && $CMD" 2>&1 3>&1 >>/var/log/service.log &
+  /bin/bash -c "cd /etc/service && $CMD" &
 fi
 
 nginx -g "daemon off;"
