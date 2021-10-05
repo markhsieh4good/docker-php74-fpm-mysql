@@ -84,6 +84,7 @@ RUN composer --version
 ## Others 
 RUN echo "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d 
 
+RUN mkdir -p /opt/service 
 RUN mkdir -p /opt/app
 WORKDIR /opt/app
 
