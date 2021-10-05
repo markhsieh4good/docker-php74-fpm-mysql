@@ -48,10 +48,6 @@ RUN apt-get install --no-install-recommends --no-install-suggests -y -q \
     zip \
     unzip
     
-RUN apt-get install --no-install-recommends --no-install-suggests -y -q \
-    make \
-    php-pear
-    
 RUN apt-get install -y \
         openssl \
         libzip-dev \
