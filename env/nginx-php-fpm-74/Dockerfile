@@ -47,7 +47,8 @@ RUN apt-get install --no-install-recommends --no-install-suggests -y -q \
     tofrodos \
     zip \
     unzip \
-    procps
+    procps \
+    logrotate
     
 RUN apt-get install -y \
         openssl \
