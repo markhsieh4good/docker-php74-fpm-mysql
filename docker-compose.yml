@@ -1,9 +1,9 @@
 version: '3.3' 
 services:
-  fruit.db: 
+  demo.db: 
     image: mysql:8.0 
     command: --default-authentication-plugin=mysql_native_password --log-error=/var/lib/mysql/error.log --general-log=ON --general-log-file=/var/lib/mysql/general.log --slow-query-log=ON --slow-query-log-file=/var/lib/mysql/slow.log --log-output=FILE 
-    container_name: fruit.db 
+    container_name: demo.db 
     restart: always 
     environment: 
       MYSQL_ROOT_PASSWORD: 123456 
@@ -16,35 +16,36 @@ services:
       - ./mysql_custom_configuration_80:/etc/mysql/conf.d
     ports:
       - 33072:3306 
-  fruit.adminer:
+  demo.adminer:
     image: adminer 
-    container_name: fruit.adminer 
+    container_name: demo.adminer 
     depends_on:
-      - fruit.db 
+      - demo.db 
     restart: always 
     ports: 
       - 17184:8080 
     environment: 
       MYSQL_USERNAME: root 
       MYSQL_ROOT_PASSWORD: 123456 
-      PMA_HOST: fruit.db 
-  fruit.redis: 
+      PMA_HOST: demo.db 
+  demo.redis: 
     image: redis:6.0 
-    container_name: fruit.redis 
-  fruit.php-api: 
+    container_name: demo.redis 
+  demo.php-api: 
     #build: ./env/nginx-php-fpm-74 
     image: "php-fpm-nginx:7.4-modify" 
-    container_name: fruit.php-api 
+    container_name: demo.php-api 
     volumes: 
-      - ./php_custom_final_web:/usr/share/nginx/html 
-      - ./php_custom_nginx_conf:/etc/nginx/sites-enabled 
+      - ./nginx_common_webs:/usr/share/nginx/html 
+      - ./php_custom_nginx_conf:/etc/nginx/sites-available
       #- ./api:/opt/app
-      - ./service:/opt/service
+      - ../service:/opt/service
     ports: 
       - 18440:80 
-      - 18441:8000
+      - 18441:8001 
+
 networks: 
   default: 
     external: 
-      name: fruit-bridge 
+      name: demo-bridge 
 

@@ -42,14 +42,13 @@ function folders() {
   _PWD=`pwd`
   mkdir -p "$_PWD/mysql_custom_system"
   mkdir -p "$_PWD/mysql_custom_configuration_80"
-  mkdir -p "$_PWD/php_custom_final_web"
+  mkdir -p "$_PWD/nginx_common_webs"
   mkdir -p "$_PWD/php_custom_nginx_conf"
 }
 
 function update() {
-  #expand -t 1 docker-compose.yml > temp.yml
-  #rm docker-compose.yml
-  #mv ./temp.yml docker-compose.yml
+  "$SUPERTAGET" docker-compose -f docker-compose.yml down
+  sleep 3
 
   l_IMG=`sudo docker images | grep 'php-fpm-nginx' | grep '7.4-modify'`
   l_PWD=`pwd`
@@ -61,9 +60,6 @@ function update() {
   fi 
 
   sleep 2
-
-  "$SUPERTAGET" docker-compose -f docker-compose.yml down
-  sleep 3
   "$SUPERTAGET" docker-compose -f docker-compose.yml build
   "$SUPERTAGET" docker-compose -f docker-compose.yml up -d
   sleep 3
