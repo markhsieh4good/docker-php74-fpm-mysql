@@ -38,11 +38,13 @@ services:
     volumes: 
       - ./nginx_common_webs:/usr/share/nginx/html 
       - ./php_custom_nginx_conf:/etc/nginx/sites-available
-      #- ./api:/opt/app
+      ## php-fpm
+      #- ./project:/var/www/html
+      ## php-cli
       - ../service:/opt/service
     ports: 
       - 18440:80 
-      - 18441:8001 
+      - 18441:8000 
 
 networks: 
   default: 

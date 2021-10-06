@@ -1,4 +1,6 @@
 FROM php:7.4.24-fpm
+# base on
+# debian:bullseye-slim
 
 LABEL maintainer="Mark.Hsieh"
 
@@ -90,12 +92,16 @@ RUN echo "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d
 
 RUN mkdir -p /opt/service 
 RUN mkdir -p /opt/app
-WORKDIR /opt/app
+
+WORKDIR /var/www/html
 
 COPY ./entrypoint.sh /opt/
 RUN chmod +rw /opt/entrypoint.sh
 RUN fromdos -d /opt/entrypoint.sh
 RUN chmod +x /opt/entrypoint.sh
 
-EXPOSE 80 443
+COPY ./php-fpm.conf /etc/supervisor/conf.d/
+RUN chmod +r /etc/supervisor/conf.d/php-fpm.conf
+
+EXPOSE 80 443 18440 18441
 CMD [ "/bin/bash", "/opt/entrypoint.sh" ]
