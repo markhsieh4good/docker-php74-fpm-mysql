@@ -17,7 +17,7 @@ ENV LC_ALL C.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
 
-# Common
+# Dev Utility
 RUN apt-get update && \
     apt-get install --no-install-recommends --no-install-suggests -y -q \
     libzip-dev \
@@ -35,12 +35,13 @@ RUN apt-get update && \
     libpspell-dev \
     libldap2-dev \
     unixodbc-dev \
-    libpq-dev \
+    libpq-dev
+    
+# Common App.
+RUN apt-get install --no-install-recommends --no-install-suggests -y -q \
     wget \
     vim \
-    git
-    
-RUN apt-get install --no-install-recommends --no-install-suggests -y -q \
+    git \
     net-tools \
     curl \
     supervisor \
@@ -50,10 +51,11 @@ RUN apt-get install --no-install-recommends --no-install-suggests -y -q \
     procps \
     logrotate
     
+# Nginx
 RUN apt-get install -y \
-        openssl \
-        libzip-dev \
-        nginx
+    openssl \
+    libzip-dev \
+    nginx
 
 ## install php 7.4 extension by pecl
 ##
