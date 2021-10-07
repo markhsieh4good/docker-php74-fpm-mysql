@@ -6,7 +6,7 @@ services:
     container_name: demo.db 
     restart: always 
     environment: 
-      MYSQL_ROOT_PASSWORD: 123456 
+      MYSQL_ROOT_PASSWORD: "TUHn3KasG=gw" 
       MYSQL_USER: "admin" 
       MYSQL_PASSWORD: "goodday"
     volumes:
@@ -26,7 +26,7 @@ services:
       - 17184:8080 
     environment: 
       MYSQL_USERNAME: root 
-      MYSQL_ROOT_PASSWORD: 123456 
+      MYSQL_ROOT_PASSWORD: "TUHn3KasG=gw" 
       PMA_HOST: demo.db 
   demo.redis: 
     image: redis:6.0 
@@ -42,6 +42,8 @@ services:
       #- ./project:/var/www/html
       ## php-cli
       - ../service:/opt/service
+      ## other apps
+      - ./app:/opt/app
     ports: 
       - 18440:80 
       - 18441:8000 

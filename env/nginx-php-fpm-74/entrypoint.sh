@@ -31,7 +31,20 @@ echo "====== php-cli support ======="
 if [ -e "/opt/service/howtostart" ]; then
   CMD=`cat /opt/service/howtostart | head -1`
   /bin/bash -c "cd /opt/service && $CMD"
+else
+  echo "pass"
 fi
+cd "$_PWD"
+echo ""
+
+echo "====== other app support ======="
+if [ -e "/opt/app/howtostart" ]; then
+  CMD=`cat /opt/app/howtostart | head -1`
+  /bin/bash -c "cd /opt/app && $CMD"
+else
+  echo "pass"
+fi
+cd "$_PWD"
 echo ""
 
 echo "====== supervisor======"
@@ -40,7 +53,7 @@ sleep 1
 service supervisor start
 service supervisor status
 sleep 2
-echo ""
+echo "-----~~~~~~~-------"
 ps aux | grep "php-fpm" | grep "process"
 echo ""
 
@@ -68,6 +81,7 @@ cd "$_PWD"
 echo ""
 
 echo "======== ready to start nginx ==========="
-ls -alh /etc/nginx/sites-enabled/
+echo "list working configurations:"
+ls -lh /etc/nginx/sites-enabled/
 echo "-----------------------------------------"
 nginx -g "daemon off;"
